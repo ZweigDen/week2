@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    .completed {
+      text-decoration: line-through
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container my-3">
+    <button id="get" class="btn btn-outline-primary">Get</button>
+    <button id="post" class="btn btn-outline-primary">Post</button>
+    <button id="patch" class="btn btn-outline-primary">Patch</button>
+    <button id="delete" class="btn btn-outline-primary">Delete</button>
+  </div>
+  <script>
+
+    document.querySelector('#get').addEventListener('click', getData);
+    document.querySelector('#post').addEventListener('click', postData);
+    document.querySelector('#patch').addEventListener('click', patchData);
+    document.querySelector('#delete').addEventListener('click', deleteData);
+
+
+    var uuid = 'e36c04b7-caa5-4a11-ab85-cd3ab214a719';
+    var token = 'Cw81dB0hyYgmiXU480aaUWxrzLUxDE07A2JTiKNzcFInK56KemJiRPyGXyXY';
+    var apiPath = 'https://course-ec-api.hexschool.io/';
+
+    // 小心，有錯～，請參考課程影片
+    var sampleData = {
+      title: '好茶',
+      category: 'tea',
+      content: '內容',
+
+      imageUrl: [
+        'https://images.unsplash.com/photo-1587918515749-a2a68b40a124?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
+      ],
+      enabled: true,
+      origin_price: 100,
+      price: 90,
+      unit: '杯',
+    };
+
+    axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+    // axios 設定說明：https://github.com/axios/axios#config-defaults
+
+    function getData() {
+      console.log('getData');
+      var api = `${apiPath}api/${uuid}/admin/ec/products`;
+      console.log(api);
+      axios.get(api)
+        .then(function (res) {
+          console.log(res);
+        })
+    }
+
+    function postData() {
+      console.log('postData');
+      var api = `${apiPath}api/${uuid}/admin/ec/product`;
+      var data = {
+        title: 'Pandemic瘟疫危機',
+        category: 'Family',
+        content: '合作機制１～４人，４５Ｍin',
+        description: '世界各地同時爆發了大規模致命的病毒！玩家們都扮演著抗病專家，要合力克服這場瘟疫危機。如果一種或多種疾病已經蔓延到不可收拾的地步或是所花費的時間過長，所有玩家都會失敗。如果能想到辦法治癒這死種疾病，則所有玩家都獲勝。遊戲版圖上印有世界地圖，上有48個城市。玩家的目標是遊戲結束前完成4種治療藥物的研發。',
+        imageUrl: [
+          'http://www.gokids.com.tw/tsaiss/gokids/%E7%98%9F%E7%96%AB%E5%8D%B1%E6%A9%9F2_450.jpg'
+        ],
+        enabled: true,
+        origin_price: 900,
+        price: 900,
+        unit: '',
+
+      };
+      console.log(api);
+      axios.post(api, data)
+        .then(function (res) {
+          console.log(res);
+        })
+    }
+
+    function patchData() {
+      console.log('patchData');
+      var api = `${apiPath}api/${uuid}/admin/ec/product/{id}`;
+      var data = {
+        title: 'Pandemic',
+        category: 'Strategy',
+        content: '工人放置１～４人，２４０Ｍin',
+        description: '遊戲背景設定為17世紀的歐洲，當時的歐洲剛經歷完黑死病肆虐，可謂百廢待興，百業待舉。在Agri裡，玩家扮演著農夫的角色，透過不同的方式發展自己的家園，在擴建(Build)/翻修(Renovate)房屋、增加家庭成員(Family Growth)、整地(Plow)與播種(Sow)、建圍欄(Fencing Pastures)、豢養動物之間拿捏平衡，任何一方面失衡均有機會招致落敗，筆者在之後會撰文專門講述平衡在Agri的重要性。Agri跟大部份歐式遊戲一樣，在遊戲結束時擁有最高分數的玩家獲勝。',
+        imageUrl: [
+          'https://7.share.photo.xuite.net/arche/17898c5/20375782/1205760479_l.jpg'
+        ],
+        enabled: true,
+        origin_price: 2300,
+        price: 2300,
+        unit: '',
+
+      };
+      console.log(api);
+      axios.patch(api, data)
+        .then(function (res) {
+          console.log(res);
+        })
+    }
+
+    function deleteData() {
+      console.log('deleteData');
+      var api = `${apiPath}api/${uuid}/admin/ec/product/H8tgO6elBpw0D8AjUPPZ3vUgcgAiniFB6RTzlRmyh1xdYlEpkaXrQQOuGeYAsu5j`;
+      console.log(api);
+      axios.delete(api)
+        .then(function (res) {
+          console.log(res);
+        })
+    }
+
+  </script>
+</body>
+
+</html>
